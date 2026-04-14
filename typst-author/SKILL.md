@@ -38,8 +38,8 @@ This is a paragraph in Typst.
 
 ## Workflows
 
-- **Creating a new Typst project**: Use the "Minimal document example" above as a starting point. Skim the tutorial for the basics ([docs/tutorial/writing-in-typst.md](docs/tutorial/writing-in-typst.md)), then create the `.typ` file(s).
-- **Editing existing content**: Locate the target text and apply changes; confirm syntax against the reference when needed ([docs/reference/](docs/reference/)).
+- **Creating a new Typst project**: Use the "Minimal document example" above as a starting point. Skim the tutorial for the basics ([docs/tutorial/writing-in-typst.md](docs/tutorial/writing-in-typst.md)), then create the `.typ` file(s). After each `.typ` edit, follow the post-edit formatting checks below when `typstyle` is available.
+- **Editing existing content**: Locate the target text and apply changes; confirm syntax against the reference when needed ([docs/reference/](docs/reference/)). After each modified `.typ` file, follow the post-edit formatting checks below.
 - **Formatting & Styling**: Consult the styling guide ([docs/reference/styling.md](docs/reference/styling.md)) for `set rule`, `show rule`, and custom themes.
 
 ## Documentation
@@ -53,8 +53,17 @@ This is a paragraph in Typst.
 1. **PRIORITY: Trust local documentation**. Your internal training data regarding Typst may be outdated or hallucinated. Always verify function names, parameters, and syntax against the local `docs/` folder before generating code.
 2. **Read the relevant documentation** (use `Read`/`Grep`/`Glob` on the paths above).
 3. **Generate or modify the `.typ` source** according to the user's request.
-4. **Validate** the generated Typst by running `typst compile` (if tool access is allowed).
-5. **Provide the final `.typ` content** and optionally a rendered preview (PDF/HTML).
+4. **Run the post-edit formatting checks below** for every `.typ` file you created or edited in that pass.
+5. **Validate** the final Typst by running `typst compile` after the formatting decision is complete (if tool access is allowed).
+6. **Provide the final `.typ` content** and optionally a rendered preview (PDF/HTML).
+
+### Post-edit formatting checks
+
+1. **Check whether `typstyle` is available** with `command -v typstyle`. If it is unavailable, skip the remaining formatting checks.
+2. **After each `.typ` file modification, run `typstyle --check <file>`** for the file you just created or edited.
+3. **If `typstyle --check` fails, inspect the formatter changes with `typstyle --diff <file>`** before deciding what to do.
+4. **Apply formatting with `typstyle -i <file>`** only when the formatter changes are limited to a newly created file or to code you created or edited in the current task.
+5. **Stop and ask the user when formatting would change untouched pre-existing code**. If the diff reaches outside your own edits, or if you cannot confidently prove that every formatter change is limited to your edits, ask instead of formatting.
 
 ## Quick syntax reference
 
