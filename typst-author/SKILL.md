@@ -52,10 +52,18 @@ This is a paragraph in Typst.
 
 1. **PRIORITY: Trust local documentation**. Your internal training data regarding Typst may be outdated or hallucinated. Always verify function names, parameters, and syntax against the local `docs/` folder before generating code.
 2. **Read the relevant documentation** (use `Read`/`Grep`/`Glob` on the paths above).
-3. **Generate or modify the `.typ` source** according to the user's request.
-4. **Run the post-edit formatting checks below** for every `.typ` file you created or edited in that pass.
-5. **Validate** the final Typst by running `typst compile` after the formatting decision is complete (if tool access is allowed).
-6. **Provide the final `.typ` content** and optionally a rendered preview (PDF/HTML).
+3. **Evaluate uncertain Typst behavior by running a minimal Typst probe** when local command execution is available. When logic, expression behavior, block behavior, or syntax is uncertain, follow the probing guidance below instead of reasoning from memory.
+4. **Generate or modify the `.typ` source** according to the user's request.
+5. **Run the post-edit formatting checks below** for every `.typ` file you created or edited in that pass.
+6. **Validate** the final Typst by running `typst compile` after the formatting decision is complete (if tool access is allowed).
+7. **Provide the final `.typ` content** and optionally a rendered preview (PDF/HTML).
+
+### Probing uncertain behavior
+
+- When local command execution is available, prefer running a minimal Typst probe over reasoning from memory.
+- Model the case with Typst scripting as described in [docs/reference/scripting.md](docs/reference/scripting.md).
+- Prefer a fileless probe through stdin instead of creating scratch `.typ` files. Expose the value with `metadata(...) <probe>` and read it with `typst query - "<probe>" --field value --one`. See [docs/reference/introspection/query.md](docs/reference/introspection/query.md) and [docs/reference/introspection/metadata.md](docs/reference/introspection/metadata.md).
+- Example: `printf '#metadata(1 + 2) <probe>\n' | typst query - "<probe>" --field value --one`
 
 ### Post-edit formatting checks
 
