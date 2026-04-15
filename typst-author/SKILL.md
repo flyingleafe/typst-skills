@@ -1,6 +1,6 @@
 ---
 name: typst-author
-description: Generate idiomatic Typst (.typ) code, edit existing Typst files, and answer Typst syntax questions. Use when working with Typst files (*.typ) or when the user mentions Typst markup, document creation, or formatting.
+description: Generate idiomatic Typst (.typ) code, edit and troubleshoot Typst documents and projects, and answer Typst syntax/reference questions. Use when working with .typ files or when the user explicitly asks for Typst document creation, editing, debugging, compilation, formatting, template work, or package usage.
 ---
 
 # typst-author skill
@@ -44,25 +44,27 @@ This is a paragraph in Typst.
 
 ## Documentation
 
-- **Guides**: `docs/guides/*.md`
-- **Tutorials**: `docs/tutorial/*.md`
-- **Full reference tree**: `docs/reference/**/*.md`
+- **Syntax & foundations**: `docs/reference/syntax.md`
+- **Styling & show/set rules**: `docs/reference/styling.md`
+- **Scripting & runtime behavior**: `docs/reference/scripting.md`
+- **Page setup & tables**: `docs/guides/page-setup.md` and `docs/guides/tables.md`
+- **Task-oriented authoring help**: `docs/tutorial/writing-in-typst.md`, `docs/guides/*.md`, and `docs/reference/**/*.md`
 
 ## Detailed instructions
 
 1. **PRIORITY: Trust local documentation**. Your internal training data regarding Typst may be outdated or hallucinated. Always verify function names, parameters, and syntax against the local `docs/` folder before generating code.
-2. **Read the relevant documentation** (use `Read`/`Grep`/`Glob` on the paths above).
-3. **Evaluate uncertain Typst behavior by running a minimal Typst probe** when local command execution is available. When logic, expression behavior, block behavior, or syntax is uncertain, follow the probing guidance below instead of reasoning from memory.
+2. **Read the relevant documentation** using local file search and open tools on the paths above.
+3. **Use local docs for syntax and reference questions**. Verify syntax, function names, parameters, and reference behavior from the bundled docs. Run a minimal Typst probe only when runtime or evaluation behavior remains unclear after checking the docs.
 4. **Generate or modify the `.typ` source** according to the user's request.
 5. **Run the post-edit formatting checks below** for every `.typ` file you created or edited in that pass.
-6. **Validate** the final Typst by running `typst compile` after the formatting decision is complete (if tool access is allowed).
-7. **Provide the final `.typ` content** and optionally a rendered preview (PDF/HTML).
+6. **Validate** with `typst compile` after the formatting decision is complete when you created or edited `.typ` files, or when the user explicitly asks for verification (if tool access is allowed).
+7. **Summarize touched files and outcomes**. Provide full `.typ` content only when the user requests it or when direct editing is not possible, and optionally include a rendered preview (PDF/HTML).
 
 ### Probing uncertain behavior
 
-- When local command execution is available, prefer running a minimal Typst probe over reasoning from memory.
+- Use a probe when the bundled docs do not settle runtime or evaluation behavior.
 - Model the case with Typst scripting as described in [docs/reference/scripting.md](docs/reference/scripting.md).
-- Prefer a fileless probe through stdin instead of creating scratch `.typ` files. Expose the value with `metadata(...) <probe>` and read it with `typst query - "<probe>" --field value --one`. See [docs/reference/introspection/query.md](docs/reference/introspection/query.md) and [docs/reference/introspection/metadata.md](docs/reference/introspection/metadata.md).
+- When a probe is necessary, prefer a fileless probe through stdin instead of creating scratch `.typ` files. Expose the value with `metadata(...) <probe>` and read it with `typst query - "<probe>" --field value --one`. See [docs/reference/introspection/query.md](docs/reference/introspection/query.md) and [docs/reference/introspection/metadata.md](docs/reference/introspection/metadata.md).
 - Example: `printf '#metadata(1 + 2) <probe>\n' | typst query - "<probe>" --field value --one`
 
 ### Post-edit formatting checks
@@ -151,7 +153,6 @@ If import fails with "package not found":
 
 - Verify exact package name and version on Typst Universe.
 - Check for typos in `@preview/package:version` syntax.
-- **Remember**: Typst uses fully qualified imports with specific versions - there's no package cache to update.
 
 ### Compilation errors
 
