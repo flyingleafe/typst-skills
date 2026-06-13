@@ -1,0 +1,14 @@
+{
+  "name": "typst-skills",
+  "version": "1.0.0",
+  "description": "Agent skills for writing, editing, and debugging Typst documents and Touying presentations",
+  "keywords": ["pi-package"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flyingleafe/typst-skills"
+  },
+  "license": "MIT",
+  "pi": {
+    "skills": ["./typst-author", "./touying-author"]
+  }
+}
