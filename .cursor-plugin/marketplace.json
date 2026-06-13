@@ -1,0 +1,22 @@
+{
+  "name": "typst-skills",
+  "owner": {
+    "name": "Dmitrii Mukhutdinov",
+    "email": "flyingleafe@gmail.com"
+  },
+  "metadata": {
+    "description": "Agent skills for writing, editing, and debugging Typst documents and Touying presentations"
+  },
+  "plugins": [
+    {
+      "name": "typst-author",
+      "source": "./typst-author",
+      "description": "Generate idiomatic Typst (.typ) code, edit and troubleshoot Typst documents and projects, and answer Typst syntax/reference questions. Use when working with .typ files or when the user asks for Typst document creation, editing, debugging, compilation, formatting, template work, or package usage."
+    },
+    {
+      "name": "touying-author",
+      "source": "./touying-author",
+      "description": "Author, refactor, and troubleshoot Typst slide decks built with Touying. Use when creating presentations with Touying themes, animations, speaker notes, or multi-file slide deck projects."
+    }
+  ]
+}
